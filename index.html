@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starwars</title>
+    <style>
+    
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding-left: 37%;
+        
+    }
+       
+        body{
+            background-color: black;
+            color: aliceblue;
+        }
+        img{
+            height: 360px;
+            width: 360px;
+            max-width: 100%;
+        }
+        
+         
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+           <font color="yellow">
+               <h1>STAR WARS</h1> 
+          </font>
+       
+        <div id="quiz">
+            <div id="question">
+                <img src="darth.jpg" >
+                 <h1>Qual é o nome desse personagem?</h1>
+           
+            </div>
+        
+        
+            <div id="choices">
+
+                <input type="radio" name="choices" value="a">  a)Obi-wan<br>
+                <input type="radio" name="choices" value="b">  b)General Grievous<br>
+                <input type="radio" name="choices" value="c">  c)Darth vader<br>
+                <input type="radio" name="choices" value="d">  d)Luke Skywalker<br>
+                <input type="radio" name="choices" value="e">  e)Mestre Yoda<br>
+            </div>
+        
+             
+                <button id="next" onclick="nextQuestion()">Próxima Pergunta</button>
+        </div>
+    </div>
+     
+    <script>
+        const questions = [
+            {
+                question: "Qual é o nome desse personagem?",
+                image: "darthv.jpg",
+                choices:["Obi-wan", "General Grievous", "Darth vader", "Luke Skywalker", "Mestre Yoda"],
+                correctAnswer: "c"
+            },
+            {
+                question: "Qual é o nome desse personagem?",
+                image: "gri.jpg",
+                choices:["Obi-wan", "General Grievous", "Darth vader", "Luke Skywalker", "Mestre Yoda"],
+                correctAnswer: "b"
+            },
+            {
+                question: "Qual é o nome desse personagem?",
+                image: "obi.jpg",
+                choices:["Obi-wan", "General Grievous", "Darth vader", "Luke Skywalker", "Mestre Yoda"],
+                correctAnswer: "a"
+            },
+            {
+                question: "Qual é o nome desse personagem?",
+                image: "yoda.jpg",
+                choices:["Obi-wan", "General Grievous", "Darth vader", "Luke Skywalker", "Mestre Yoda"],
+                correctAnswer: "e"
+            },
+            {
+                question: "Qual é o nome desse personagem?",
+                image: "luke.jpg",
+                choices:["Obi-wan", "General Grievous", "Darth vader", "Luke Skywalker", "Mestre Yoda"],
+                correctAnswer: "d"
+            }
+        ];
+
+        let currentQuestion = 0;
+        const quizContainer = document.getElementById('quiz');
+
+        function loadQuestion(questionIndex) {
+            const question = questions[questionIndex];
+            const questionDiv = document.getElementById('question');
+            questionDiv.innerHTML = `<img src="${question.image}" alt="Pergunta ${questionIndex + 1}"><p>${question.question}</p>`;
+
+            const choicesDiv = document.getElementById('choices');
+            choicesDiv.innerHTML = '';
+            question.choices.forEach((choice, index) => {
+                choicesDiv.innerHTML += `<input type="radio" name="choices" value="${String.fromCharCode(97 + index)}"> ${String.fromCharCode(97 + index)}) ${choice}<br>`;
+            });
+        }
+
+        function nextQuestion() {
+            const selectedChoice = document.querySelector('input[name="choices"]:checked');
+            if (selectedChoice) {
+                if (selectedChoice.value === questions[currentQuestion].correctAnswer) {
+                    alert('Resposta correta!');
+                } else 
+                {
+                    alert('Resposta incorreta. A resposta correta é ' + questions[currentQuestion].choices[questions[currentQuestion].correctAnswer.charCodeAt(0) - 97]);
+                }
+
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    loadQuestion(currentQuestion);
+                } else {
+                   quizContainer.innerHTML =  '<h2>Quiz concluído</h2>';
+                }
+            }
+        }
+
+        loadQuestion(currentQuestion);
+    </script>
+    
+</body>
+</html>
